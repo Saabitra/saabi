@@ -1,4 +1,4 @@
-import { SunIcon, BoltIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { SunIcon, BoltIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline"
 
 
 export default function Home() {
@@ -6,7 +6,7 @@ export default function Home() {
     <div className="text-white flex flex-col items-center justify-center h-screen px-2">
       <h1 className="text-3xl font-bold mb-20">SAABI AI</h1>
 
-      <div className='flex space-x-2 text-center'>
+      <div className="flex space-x-2 text-center">
         <div>
           <div className="flex flex-col items-center justify-center mb-5">
             {/* Sun Icon */}

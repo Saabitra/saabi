@@ -32,18 +32,18 @@ export default async function handler(
         text: response || "SAABI was unable to find an answer for that!😔",
         createdAt: admin.firestore.Timestamp.now(),
         user: {
-            _id: 'SAABI',
-            name: 'SAABI',
+            _id: "SAABI",
+            name: "SAABI",
             avatar: "https://imgur.com/a/10fHblu",
         },
     };
 
     await adminDb
-    .collection('users')
+    .collection("users")
     .doc(session?.user?.email)
-    .collection('chats')
+    .collection("chats")
     .doc(chatId)
-    .collection('messages')
+    .collection("messages")
     .add(message);
 
     res.status(200).json({ answer: message.text });

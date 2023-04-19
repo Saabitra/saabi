@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { db } from "@/firebase";
 import { Message } from "@/typings";
@@ -15,7 +15,7 @@ type Props = {
 };
 
 function ChatInput({chatId}: Props) {
-    const [prompt, setPrompt] = useState('');
+    const [prompt, setPrompt] = useState("");
     const {data: session} = useSession();
 
     const { data: model } = useSWR("model", {
@@ -23,7 +23,7 @@ function ChatInput({chatId}: Props) {
     })
 
     // TODO: useSwr to fetch the model
-    // const model = 'text-davinci-003'
+    // const model = "text-davinci-003"
 
 
     const sendMessage = async (e: FormEvent<HTMLFormElement>) => {
@@ -31,7 +31,7 @@ function ChatInput({chatId}: Props) {
         if (!prompt) return;
 
         const input = prompt.trim;
-        setPrompt('');
+        setPrompt("");
 
         const message: Message = {
             text: input,
@@ -43,22 +43,22 @@ function ChatInput({chatId}: Props) {
             }
         }
 
-        await addDoc(collection(db, 'users', session?.user?.email!, 'chats', chatId, 'messages'), message)
+        await addDoc(collection(db, "users", session?.user?.email!, "chats", chatId, "messages"), message)
 
         // Toast notification to say Loading!
-        const notification = toast.loading('SAABI is thinking🤔...');
+        const notification = toast.loading("SAABI is thinking🤔...");
 
-        await fetch('/api/askQuestion', {
-            method: 'POST',
+        await fetch("/api/askQuestion", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 prompt: input, chatId, model, session
             })
         }).then(() => {
             // Toast notification to say successful!
-            toast.success('SAABI has responded!🧙🏼‍♂️😃', {
+            toast.success("SAABI has responded!🧙🏼‍♂️😃", {
                 id: notification
             })
 

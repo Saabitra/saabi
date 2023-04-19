@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { db } from "../firebase";
 import { PlusIcon } from "@heroicons/react/24/solid"
@@ -12,7 +12,7 @@ function NewChat() {
 
 
   const createNewChat = async() => {
-    const doc = await addDoc(collection(db, 'users', session?.user?.email!, 'chats'), {
+    const doc = await addDoc(collection(db, "users", session?.user?.email!, "chats"), {
       userId: session?.user?.email!,
       createdAt: serverTimestamp()
     }

@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import { useSession, signOut } from "next-auth/react"
 import NewChat from "./NewChat"
 import Image from "next/image";
@@ -14,7 +14,7 @@ function SideBar() {
 
 
   const [chats, loading, error] = useCollection(
-    session && query(collection(db, 'users', session.user?.email!, 'chats'), orderBy('createdAt', 'asc')
+    session && query(collection(db, "users", session.user?.email!, "chats"), orderBy("createdAt", "asc")
   )
 );
 

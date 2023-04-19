@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { db } from "@/firebase";
 import { collection, orderBy, query } from "firebase/firestore";
@@ -15,8 +15,8 @@ function Chat({chatId}: Props) {
   const {data: session} = useSession();
 
   const [messages] = useCollection(session && query(
-    collection(db, session?.user?.email!, 'chats', chatId, 'messages'),
-    orderBy('createdAt', 'asc')
+    collection(db, session?.user?.email!, "chats", chatId, "messages"),
+    orderBy("createdAt", "asc")
   ))
 
   return <div className="flex-1 overflow-y-auto overflow-x-hidden">
