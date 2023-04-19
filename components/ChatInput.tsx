@@ -1,3 +1,5 @@
+"use client"
+
 import { db } from "@/firebase";
 import { Message } from "@/typings";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
@@ -25,15 +27,16 @@ function ChatInput({chatId}: Props) {
 
 
     const sendMessage = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+        e.preventDefault();
         if (!prompt) return;
 
         const input = prompt.trim();
         setPrompt("");
+        
 
         const message: Message = {
             text: input,
-            createdAt: serverTimestamp(),
+            createdAt: serverTimestamp,
             user: {
                 _id: session?.user?.email!,
                 name: session?.user?.name!,
