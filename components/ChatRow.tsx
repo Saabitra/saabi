@@ -1,7 +1,7 @@
 import { db } from "@/firebase";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import { TrashIcon } from "@heroicons/react/24/solid";
-import { collection, deleteDoc, orderBy, query } from "firebase/firestore";
+import { collection, deleteDoc, doc, orderBy, query } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -19,9 +19,9 @@ function ChatRow({id}: Props) {
     const [active, setActive] = useState(false);
 
 
-    const [messages] = useCollection(query(
+    const [messages] = useCollection(
         collection(db, "users", session?.user?.email!, "chats", id, "messages")
-    ))
+    )
 
 
     useEffect(() => {
@@ -31,7 +31,7 @@ function ChatRow({id}: Props) {
     }, [pathname]);
 
     const removeChat = async() => {
-        await deleteDoc(doc(db, "users", session?.user.email!, "chats", id))
+        await deleteDoc(doc(db, "users", session?.user?.email!, "chats", id))
         router.replace("/")
     }
 
