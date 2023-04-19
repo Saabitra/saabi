@@ -1,5 +1,9 @@
 // import { query } from "firebase/firestore";
+import query from "@/lib/queryApi";
+import { Message } from "@/typings";
 import type { NextApiRequest, NextApiResponse } from "next";
+import admin from "firebase-admin";
+import { adminDb } from "@/firebaseAdmin";
 
 type Data = {
     answer: string;
@@ -24,5 +28,23 @@ export default async function handler(
     // ChatGPT Query
     const response = await query(prompt, chatId, model);
 
-    res.status(200).json({ name: "John Doe" });
+    const message: Message = {
+        text: response || "SAABI was unable to find an answer for that!😔",
+        createdAt: admin.firestore.Timestamp.now(),
+        user: {
+            _id: 'SAABI',
+            name: 'SAABI',
+            avatar: "https://imgur.com/a/10fHblu",
+        },
+    };
+
+    await adminDb
+    .collection('users')
+    .doc(session?.user?.email)
+    .collection('chats')
+    .doc(chatId)
+    .collection('messages')
+    .add(message);
+
+    res.status(200).json({ answer: message.text });
 }
